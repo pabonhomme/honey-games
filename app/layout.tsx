@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/ui/BottomNav";
+import { DataInitializer } from "@/components/DataInitializer";
 
 const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         className={`${hankenGrotesk.variable} pb-24 bg-sand min-h-screen font-sans antialiased text-teal-900`}
       >
         <main className="max-w-md mx-auto bg-sand min-h-screen relative shadow-sm">
+          <DataInitializer />
           {children}
         </main>
         <BottomNav />
