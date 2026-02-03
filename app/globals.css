@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  /* Import Industrious color system */
+  --color-teal-50: #1d5859;
+  --color-teal-70: #57898a;
+  --color-teal-90: #92b6b6;
+
+  --color-ocean-50: #0e4e43;
+  --color-ocean-70: #387d67;
+  --color-ocean-90: #8ab89b;
+
+  --color-honey-50: #fcc70f;
+  --color-honey-70: #fede73;
+  --color-honey-90: #fee9a2;
+
+  --color-sunset-50: #dd5220;
+  --color-sunset-70: #e98b69;
+  --color-sunset-90: #f2baa5;
+
+  --color-grey-10: #242424;
+  --color-grey-50: #b4b4b4;
+  --color-grey-80: #e0e0e0;
+  --color-grey-90: #eeeeee;
+
+  --shadow-sm: 0 0 4px 0 rgb(0 0 0 / 0.15);
+  --shadow-md: 0 0 7px 1px rgb(0 0 0 / 0.25);
+  --shadow-header: 0 2px 8px rgb(0 0 0 / 0.1);
+
+  /* Mobile-first breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+
+  /* Animation */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Mobile-optimized base styles */
+body {
+  @apply bg-grey-90 text-grey-10;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+@utility safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
