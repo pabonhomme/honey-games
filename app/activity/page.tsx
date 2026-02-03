@@ -2,6 +2,8 @@
 
 import { useStore } from "@/lib/store/useStore";
 import { BadgeCard } from "@/components/badges/BadgeCard";
+import { WrappedBanner } from "@/components/badges/WrappedBanner";
+import { RedeemShop } from "@/components/shop/RedeemShop";
 import { BADGES } from "@/lib/constants/badges";
 import Link from "next/link";
 import clsx from "clsx";
@@ -61,15 +63,25 @@ export default function ActivityPage() {
     return true;
   });
 
+  // Calculate generic progress for demo purposes if not tracked in backend
+  // In a real app, this would come from `user.badgeProgress`
+  const getProgress = (badgeId: string) => {
+    // Mock logic based on Figma descriptions roughly or just random/static for visual
+    if (badgeId === "early-riser") return 20;
+    if (badgeId === "full-house") return 5;
+    if (badgeId === "pollinator") return 33;
+    return 0;
+  };
+
   return (
-    <div className="p-5 pt-10 pb-24 space-y-8">
+    <div className="p-5 pt-10 pb-32 space-y-8 bg-white min-h-screen">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-light text-teal-900 mb-1">My Activity</h1>
-        <p className="text-sm text-grey-500">
-          Track your progress and achievements.
-        </p>
+        <h1 className="text-3xl font-serif text-teal-900 mb-1">My Activity</h1>
       </div>
+
+      {/* Wrapped Banner */}
+      <WrappedBanner />
 
       {/* Stats Section */}
       <section className="space-y-4">
@@ -81,7 +93,7 @@ export default function ActivityPage() {
             className="bg-grey-100 rounded-lg p-1 text-[10px] font-bold uppercase text-teal-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
           >
             <option value="">All Time</option>
-            {[...Array(5)].map((_, i) => {
+            {[...Array(3)].map((_, i) => {
               const year = new Date().getFullYear() - i;
               return (
                 <option key={year} value={year}>
@@ -91,6 +103,8 @@ export default function ActivityPage() {
             })}
           </select>
         </div>
+
+        {/* Stats Card */}
         <div className="bg-white rounded-xl shadow-sm border border-grey-200 overflow-hidden">
           <StatRow
             label="Total Check-ins"
@@ -103,7 +117,7 @@ export default function ActivityPage() {
             value={stats.locationsVisited}
             icon="🌍"
             subtext="Across the network"
-            action={{ label: "View All", href: "#" }}
+            action={{ label: "View Map", href: "#" }}
           />
           <StatRow
             label="Meeting Rooms"
@@ -112,15 +126,17 @@ export default function ActivityPage() {
             subtext="Hours booked"
             action={{ label: "Book Room", href: "#" }}
           />
-          <StatRow
-            label="Day Passes"
-            value={stats.dayPassCount}
-            icon="🎫"
-            subtext="Desks used"
-            action={{ label: "Buy Pass", href: "#" }}
-          />
         </div>
       </section>
+
+      <hr className="border-grey-100" />
+
+      {/* Redeem Shop Section */}
+      <section>
+        <RedeemShop />
+      </section>
+
+      <hr className="border-grey-100" />
 
       {/* Badges Section */}
       <section className="space-y-4">
@@ -154,7 +170,7 @@ export default function ActivityPage() {
                 isEarned={!!earnedData}
                 earnedDate={earnedData?.earnedAt}
                 count={earnedData?.count}
-                progress={earnedData ? 100 : 0}
+                progress={earnedData ? 100 : getProgress(badge.id)}
               />
             );
           })}

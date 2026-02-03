@@ -13,4 +13,7 @@ export interface User {
   accounts: Account[];
   membershipType: 'member' | 'on-demand';
   primaryLocation: string;
+  activityPoints?: number;
+  daysStreak?: number;
+  redeemedItems?: { id: string; name: string; redeemDate: string }[];
 }
