@@ -36,10 +36,12 @@ interface AppState {
   upsellOpportunity: CostSavings;
   isLoading: boolean;
   error: string | null;
+  yearFilter: string;
+  setYearFilter: (year: string) => void;
   fetchData: () => Promise<void>;
 }
 
-export const useStore = create<AppState>((set) => ({
+export const useStore = create<AppState>((set, get) => ({
   user: safeUser,
   reservations: [],
   earnedBadges: [],
@@ -49,14 +51,22 @@ export const useStore = create<AppState>((set) => ({
   upsellOpportunity: { totalSpentOnDayPasses: 0, potentialMembershipCost: 0, savings: 0, visits: 0 },
   isLoading: false,
   error: null,
+  yearFilter: new Date().getFullYear().toString(), // Default to current year
+
+  setYearFilter: (year: string) => {
+    set({ yearFilter: year });
+    get().fetchData(); // Refetch immediately when filter changes
+  },
 
   fetchData: async () => {
+    const { yearFilter } = get();
     set({ isLoading: true, error: null });
     try {
-      // Fetch User and State (which contains bookings/visits)
+      // Fetch User and State (which contains bookings/visits) with filter
+      // Note: We only filter state (transactions), user data is typically global but could be filtered too if needed.
       const [userRes, stateRes] = await Promise.all([
         fetch('/api/user'),
-        fetch('/api/state')
+        fetch(`/api/state?year=${yearFilter}`)
       ]);
 
       if (!userRes.ok || !stateRes.ok) {
@@ -67,28 +77,13 @@ export const useStore = create<AppState>((set) => ({
       const stateData = await stateRes.json();
 
       // Normalize backend data to frontend types
-      // Backend 'bookings' and 'visits' need to be merged/mapped to 'reservations'
-      // Assuming backend 'bookings' and 'visits' match Reservation shape roughly or we map them.
-      // For this demo, we assume the backend stores them in a compatible way or we just use them.
-      
       const bookings = (stateData.bookings || []) as Reservation[];
       const visits = (stateData.visits || []) as Reservation[];
       
-      // Combine for calculations
       const allReservations = [...bookings, ...visits];
 
-      // Recalculate derived state based on FETCHED data
-      // Note: If backend provides these, we could use them. But calculating ensures consistency with frontend logic.
-      // However, strict requirement says "Badge count... backend-driven". 
-      // If backend sends 'badges' (EarnedBadge[]), usage:
+      // Use backend badges if available, else derive? 
       const backendBadges = (stateData.badges || []) as EarnedBadge[];
-      
-      // OR if we trust frontend logic:
-      // const earnedBadges = calculateEarnedBadges(allReservations);
-      
-      // Let's mix: Use backend badges if available, else derive? 
-      // User said: "Frontend only renders what backend returns."
-      // So we should use `stateData.badges`.
       const earnedBadges = backendBadges.length > 0 ? backendBadges : calculateEarnedBadges(allReservations);
 
       const currentStreak = calculateCurrentStreak(allReservations);

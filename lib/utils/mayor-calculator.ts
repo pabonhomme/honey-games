@@ -28,7 +28,7 @@ export function calculateMayorStatus(reservations: Reservation[]): MayorStatus {
     }
   });
 
-  // 3. Determine threshold (Mock logic: > 10 visits makes you Mayor for demo)
+  // 3. Determine threshold (e.g., > 5 visits)
   const MAYOR_THRESHOLD = 5; 
 
   if (maxCount >= MAYOR_THRESHOLD) {
@@ -36,7 +36,7 @@ export function calculateMayorStatus(reservations: Reservation[]): MayorStatus {
       isMayor: true,
       locationId: maxLocationId,
       visitCount: maxCount,
-      locationName: 'Mock Location Name' // We would look this up ideally
+      locationName: 'Mock Location Name'
     };
   }
 

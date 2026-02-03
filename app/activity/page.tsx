@@ -47,7 +47,7 @@ function StatRow({
 }
 
 export default function ActivityPage() {
-  const { earnedBadges, stats } = useStore();
+  const { earnedBadges, stats, yearFilter, setYearFilter } = useStore();
   const [filter, setFilter] = useState<"all" | "earned" | "locked">("all");
 
   const isEarned = (badgeId: string) =>
@@ -73,16 +73,25 @@ export default function ActivityPage() {
 
       {/* Stats Section */}
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-teal-900">Stats</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-teal-900">Stats</h2>
+          <select
+            value={yearFilter}
+            onChange={(e) => setYearFilter(Number(e.target.value))}
+            className="bg-grey-100 rounded-lg p-1 text-[10px] font-bold uppercase text-teal-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
+          >
+            <option value={0}>All Time</option>
+            {[...Array(5)].map((_, i) => {
+              const year = new Date().getFullYear() - i;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
+          </select>
+        </div>
         <div className="bg-white rounded-xl shadow-sm border border-grey-200 overflow-hidden">
-          <div className="p-4 bg-sand border-b border-grey-200 flex justify-end">
-            {/* Mock Year Selector */}
-            <select className="bg-transparent text-xs font-bold text-teal-900 border-none outline-none cursor-pointer">
-              <option>2026</option>
-              <option>2025</option>
-              <option>2024</option>
-            </select>
-          </div>
           <StatRow
             label="Total Check-ins"
             value={stats.totalCheckIns}
