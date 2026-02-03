@@ -9,5 +9,7 @@ export const mockUser: User = {
   memberSinceISO: '2023-01-15T00:00:00.000Z',
   accounts: [
     { _id: 'acc-1', name: 'Acme Corp' }
-  ]
+  ],
+  membershipType: 'member',
+  primaryLocation: 'Flatiron'
 };

@@ -3,11 +3,10 @@
 import { useStore } from "@/lib/store/useStore";
 import Link from "next/link";
 import { SavingsCard } from "@/components/upsell/SavingsCard";
-import { CouponCard } from "@/components/upsell/CouponCard";
 import { NearbyLocations } from "@/components/upsell/NearbyLocations";
 
 export default function Home() {
-  const { user, currentStreak, earnedBadges, stats } = useStore();
+  const { user, currentStreak, earnedBadges } = useStore();
 
   return (
     <div className="p-5 space-y-6 pt-10 pb-24">
@@ -20,6 +19,14 @@ export default function Home() {
           <h1 className="text-3xl font-light text-teal-900 leading-tight">
             {user.firstName}
           </h1>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-100 uppercase tracking-wider">
+              {user.membershipType}
+            </span>
+            <span className="text-xs text-grey-500">
+              {user.primaryLocation}
+            </span>
+          </div>
         </div>
         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
           {/* Placeholder Avatar */}
@@ -54,11 +61,38 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Primary Actions Grid */}
+      {/* What&apos;s Upcoming (New) */}
+      <div>
+        <h3 className="text-lg font-medium text-teal-900 mb-3 px-1">
+          What&apos;s Upcoming
+        </h3>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-grey-200 flex gap-4 overflow-x-auto snap-x">
+          <div className="min-w-[200px] snap-center">
+            <div className="h-24 bg-card-pattern bg-cover rounded-lg mb-2 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-teal-900/10 group-hover:bg-teal-900/0 transition-colors" />
+            </div>
+            <p className="font-bold text-sm text-teal-900">Bagel Monday</p>
+            <p className="text-xs text-grey-500">
+              Mon, 9:00 AM • {user.primaryLocation}
+            </p>
+          </div>
+          <div className="min-w-[200px] snap-center">
+            <div className="h-24 bg-card-pattern2 bg-cover rounded-lg mb-2 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-teal-900/10 group-hover:bg-teal-900/0 transition-colors" />
+            </div>
+            <p className="font-bold text-sm text-teal-900">Happy Hour</p>
+            <p className="text-xs text-grey-500">
+              Thu, 4:00 PM • {user.primaryLocation}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Primary Actions Grid - Simplified */}
       <div className="grid grid-cols-2 gap-4">
         <Link
-          href="/badges"
-          className="bg-white p-5 rounded-xl shadow-sm border border-grey-200 hover:border-teal-900/20 hover:shadow-md transition-all group"
+          href="/activity"
+          className="bg-white p-5 rounded-xl shadow-sm border border-grey-200 hover:border-teal-900/20 hover:shadow-md transition-all group col-span-2"
         >
           <div className="flex justify-between items-start mb-4">
             <div className="text-3xl grayscale group-hover:grayscale-0 transition-all duration-300">
@@ -69,68 +103,15 @@ export default function Home() {
             </span>
           </div>
           <p className="text-grey-500 text-xs font-bold uppercase tracking-wider group-hover:text-teal-900">
-            Badges
-          </p>
-        </Link>
-        <Link
-          href="/stats"
-          className="bg-white p-5 rounded-xl shadow-sm border border-grey-200 hover:border-teal-900/20 hover:shadow-md transition-all group"
-        >
-          <div className="flex justify-between items-start mb-4">
-            <div className="text-3xl grayscale group-hover:grayscale-0 transition-all duration-300">
-              📍
-            </div>
-            <span className="text-2xl font-bold text-teal-900">
-              {stats.totalCheckIns}
-            </span>
-          </div>
-          <p className="text-grey-500 text-xs font-bold uppercase tracking-wider group-hover:text-teal-900">
-            Check-ins
+            Check Your Badges
           </p>
         </Link>
       </div>
 
-      {/* Upcoming Goals - List View */}
-      <div>
-        <h3 className="text-lg font-medium text-teal-900 mb-3 px-1">
-          Next Goal
-        </h3>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-grey-200 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-sand flex items-center justify-center text-xl grayscale border border-grey-100">
-            🌅
-          </div>
-          <div className="flex-1">
-            <div className="flex justify-between mb-2">
-              <p className="text-sm font-bold text-teal-900">The Early Riser</p>
-              <span className="text-xs font-mono text-grey-500">1/5</span>
-            </div>
-            <div className="w-full h-1.5 bg-grey-100 rounded-full overflow-hidden">
-              <div className="bg-teal-900 h-full w-[20%]"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Phase 2: Upselling & Rewards - Clean Cards */}
+      {/* Nearby & Rewards */}
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-teal-900 pt-2 px-1">For You</h3>
+        <h3 className="text-lg font-medium text-teal-900 pt-2 px-1">Rewards</h3>
         <SavingsCard />
-
-        <div className="grid grid-cols-2 gap-3">
-          <CouponCard
-            title="Deep Work"
-            discount="50% Off"
-            code="DEEP50"
-            isUnlocked={currentStreak > 3} // Mock unlock
-          />
-          <CouponCard
-            title="Guest Pass"
-            discount="Free"
-            code="FRIENDFREE"
-            isUnlocked={false}
-          />
-        </div>
-
         <NearbyLocations />
       </div>
     </div>

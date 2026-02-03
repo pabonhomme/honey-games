@@ -11,4 +11,6 @@ export interface User {
   profilePictureUrl?: string;
   memberSinceISO: string;
   accounts: Account[];
+  membershipType: 'member' | 'on-demand';
+  primaryLocation: string;
 }

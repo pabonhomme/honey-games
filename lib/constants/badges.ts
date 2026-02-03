@@ -7,6 +7,7 @@ export const BADGES: Record<string, Badge> = {
     description: 'First check-in as a member',
     icon: '🐝',
     color: 'honey',
+    isMemberOnly: true,
   },
   EARLY_RISER: {
     id: 'early-riser',
@@ -14,6 +15,7 @@ export const BADGES: Record<string, Badge> = {
     description: 'Checked in before 8:00 AM five days in a row',
     icon: '🌅',
     color: 'ocean',
+    isRepeatable: true,
   },
   MOONLIGHTER: {
     id: 'moonlighter',
@@ -25,9 +27,10 @@ export const BADGES: Record<string, Badge> = {
   ANCHOR: {
     id: 'anchor',
     name: 'The Anchor',
-    description: 'Visited the same desk or zone for 10 consecutive workdays',
+    description: 'Used the same conference room 10+ times',
     icon: '⚓',
     color: 'teal',
+    isRepeatable: true,
   },
   FULL_HOUSE: {
     id: 'full-house',
@@ -35,6 +38,7 @@ export const BADGES: Record<string, Badge> = {
     description: 'Checked in every single business day of a calendar month',
     icon: '🏠',
     color: 'honey',
+    isRepeatable: true,
   },
   BUSY_BEE: {
     id: 'busy-bee',
@@ -49,6 +53,11 @@ export const BADGES: Record<string, Badge> = {
     description: 'Successfully referred a new member or a guest',
     icon: '🤝',
     color: 'ocean',
+    upsell: {
+      title: 'Refer & Earn',
+      description: 'Get $500 for every referral.',
+      cta: 'Refer Now',
+    },
   },
   POLLINATOR: {
     id: 'pollinator',
@@ -56,6 +65,12 @@ export const BADGES: Record<string, Badge> = {
     description: 'Visited 3+ Industrious locations within a city',
     icon: '🦋',
     color: 'sunset',
+    isMemberOnly: true,
+    upsell: {
+      title: 'Access All Content',
+      description: 'Upgrade to Access membership to visit any location.',
+      cta: 'Upgrade',
+    },
   },
   WORLD_TRAVELER: {
     id: 'world-traveler',
@@ -63,6 +78,12 @@ export const BADGES: Record<string, Badge> = {
     description: 'Visited 5+ locations in different cities',
     icon: '🌍',
     color: 'teal',
+    isMemberOnly: true,
+    upsell: {
+      title: 'Go National',
+      description: 'Travel freely with our National Access pass.',
+      cta: 'Upgrade',
+    },
   },
   STORM_RIDER: {
     id: 'storm-rider',
