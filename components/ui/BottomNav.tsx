@@ -56,19 +56,13 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-grey-200 safe-area-inset-bottom z-50">
-      <div className="grid grid-cols-3 max-w-md mx-auto h-16 items-center">
+      <div className="grid grid-cols-2 max-w-md mx-auto h-16 items-center">
         <NavItem icon="⌂" label="Home" href="/" isActive={pathname === "/"} />
         <NavItem
           icon="📊"
           label="My Activity"
           href="/activity"
           isActive={pathname === "/activity"}
-        />
-        <NavItem
-          icon="🎁"
-          label="Wrapped"
-          href="/wrapped"
-          isActive={pathname === "/wrapped"}
         />
       </div>
     </nav>
