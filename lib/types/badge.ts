@@ -13,10 +13,18 @@ export interface Badge {
   description: string;
   icon: string;
   color: BrandColor;
+  isRepeatable?: boolean;
+  isMemberOnly?: boolean;
+  upsell?: {
+    title: string;
+    description: string;
+    cta: string;
+  };
   // criteria is functional logic, so we might keep it separate or in the object
 }
 
 export interface EarnedBadge {
   badgeId: BadgeId;
   earnedAt: string;
+  count?: number;
 }
