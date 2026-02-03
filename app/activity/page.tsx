@@ -77,10 +77,10 @@ export default function ActivityPage() {
           <h2 className="text-lg font-bold text-teal-900">Stats</h2>
           <select
             value={yearFilter}
-            onChange={(e) => setYearFilter(Number(e.target.value))}
+            onChange={(e) => setYearFilter(e.target.value)}
             className="bg-grey-100 rounded-lg p-1 text-[10px] font-bold uppercase text-teal-900 focus:outline-none focus:ring-2 focus:ring-gold-500"
           >
-            <option value={0}>All Time</option>
+            <option value="">All Time</option>
             {[...Array(5)].map((_, i) => {
               const year = new Date().getFullYear() - i;
               return (
