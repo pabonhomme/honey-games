@@ -19,16 +19,34 @@ function NavItem({
     <Link
       href={href}
       className={clsx(
-        "flex flex-col items-center justify-center py-3 px-2 transition-all active:scale-95",
-        isActive ? "text-teal-50" : "text-grey-50 hover:text-teal-70",
+        "group flex flex-col items-center justify-center py-2 px-4 w-full transition-all duration-300 relative",
+        isActive ? "text-teal-900" : "text-grey-500 hover:text-teal-700",
       )}
     >
-      <span className="text-xl mb-1">{icon}</span>
+      {/* Icon Area */}
+      <div
+        className={clsx(
+          "mb-1 text-2xl transition-transform duration-300",
+          isActive ? "scale-110" : "group-hover:scale-110",
+        )}
+      >
+        {icon}
+      </div>
+
+      {/* Label */}
       <span
-        className={clsx("text-xs font-medium", isActive ? "font-bold" : "")}
+        className={clsx(
+          "text-[10px] uppercase tracking-wider font-semibold transition-opacity duration-300",
+          isActive ? "opacity-100" : "opacity-70 group-hover:opacity-100",
+        )}
       >
         {label}
       </span>
+
+      {/* Active Dot Indicator */}
+      {isActive && (
+        <span className="absolute bottom-1 w-1 h-1 bg-teal-900 rounded-full animate-fade-in" />
+      )}
     </Link>
   );
 }
@@ -37,11 +55,11 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-grey-80 safe-area-inset-bottom z-50 rounded-t-2xl shadow-header">
-      <div className="grid grid-cols-4 max-w-md mx-auto">
-        <NavItem icon="🏠" label="Home" href="/" isActive={pathname === "/"} />
+    <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-grey-200 safe-area-inset-bottom z-50">
+      <div className="grid grid-cols-4 max-w-md mx-auto h-16 items-center">
+        <NavItem icon="⌂" label="Home" href="/" isActive={pathname === "/"} />
         <NavItem
-          icon="🏆"
+          icon="⬡"
           label="Badges"
           href="/badges"
           isActive={pathname === "/badges"}

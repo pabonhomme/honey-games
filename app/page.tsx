@@ -10,111 +10,122 @@ export default function Home() {
   const { user, currentStreak, earnedBadges, stats } = useStore();
 
   return (
-    <div className="p-6 space-y-6 pt-12 pb-24">
+    <div className="p-5 space-y-6 pt-10 pb-24">
       {/* Header */}
-      <div className="flex items-center space-x-4">
-        <div className="w-12 h-12 bg-teal-90 rounded-full overflow-hidden relative">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-grey-500 text-xs font-semibold uppercase tracking-widest mb-1">
+            Welcome back
+          </p>
+          <h1 className="text-3xl font-light text-teal-900 leading-tight">
+            {user.firstName}
+          </h1>
+        </div>
+        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
           {/* Placeholder Avatar */}
           <img
             src={user.profilePictureUrl}
             alt={user.firstName}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover grayscale opacity-90"
           />
         </div>
-        <div>
-          <h1 className="text-2xl font-bold text-teal-50">
-            Hello, {user.firstName}
-          </h1>
-          <p className="text-grey-50 text-sm">Welcome back to Industrious</p>
-        </div>
       </div>
 
-      {/* Streak Card */}
-      <div className="bg-gradient-to-br from-teal-50 to-teal-70 rounded-3xl p-6 text-white shadow-md relative overflow-hidden">
-        <div className="relative z-10">
-          <p className="opacity-90 font-medium mb-1">Current Streak</p>
-          <div className="flex items-baseline space-x-2">
-            <span className="text-6xl font-extrabold">{currentStreak}</span>
-            <span className="text-xl opacity-90">Days</span>
+      {/* Streak Card - Minimalist */}
+      <div className="bg-white rounded-xl p-6 shadow-sm border border-grey-200 relative overflow-hidden">
+        <div className="flex justify-between items-center relative z-10">
+          <div>
+            <p className="text-grey-500 text-xs font-bold uppercase tracking-widest mb-1">
+              Daily Streak
+            </p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-5xl font-light text-teal-900">
+                {currentStreak}
+              </span>
+              <span className="text-lg text-teal-700">days</span>
+            </div>
+            <p className="text-sm text-grey-500 mt-1">
+              Keep the momentum going.
+            </p>
           </div>
-          <p className="text-sm opacity-80 mt-2">
-            You are on fire! Check in tomorrow to keep it going.
-          </p>
-        </div>
-        {/* Background Decoration */}
-        <div className="absolute -right-8 -bottom-8 text-9xl opacity-10 rotate-12">
-          🔥
+          <div className="w-14 h-14 rounded-full bg-sand border border-grey-200 flex items-center justify-center text-2xl">
+            🔥
+          </div>
         </div>
       </div>
 
-      {/* Quick Stats Grid */}
+      {/* Primary Actions Grid */}
       <div className="grid grid-cols-2 gap-4">
         <Link
           href="/badges"
-          className="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95 group"
+          className="bg-white p-5 rounded-xl shadow-sm border border-grey-200 hover:border-teal-900/20 hover:shadow-md transition-all group"
         >
-          <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            🏆
+          <div className="flex justify-between items-start mb-4">
+            <div className="text-3xl grayscale group-hover:grayscale-0 transition-all duration-300">
+              🏆
+            </div>
+            <span className="text-2xl font-bold text-teal-900">
+              {earnedBadges.length}
+            </span>
           </div>
-          <p className="text-grey-50 text-xs font-medium uppercase tracking-wider">
+          <p className="text-grey-500 text-xs font-bold uppercase tracking-wider group-hover:text-teal-900">
             Badges
-          </p>
-          <p className="text-2xl font-bold text-ocean-50">
-            {earnedBadges.length}
           </p>
         </Link>
         <Link
           href="/stats"
-          className="bg-white p-5 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95 group"
+          className="bg-white p-5 rounded-xl shadow-sm border border-grey-200 hover:border-teal-900/20 hover:shadow-md transition-all group"
         >
-          <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
-            📍
+          <div className="flex justify-between items-start mb-4">
+            <div className="text-3xl grayscale group-hover:grayscale-0 transition-all duration-300">
+              📍
+            </div>
+            <span className="text-2xl font-bold text-teal-900">
+              {stats.totalCheckIns}
+            </span>
           </div>
-          <p className="text-grey-50 text-xs font-medium uppercase tracking-wider">
+          <p className="text-grey-500 text-xs font-bold uppercase tracking-wider group-hover:text-teal-900">
             Check-ins
-          </p>
-          <p className="text-2xl font-bold text-honey-50">
-            {stats.totalCheckIns}
           </p>
         </Link>
       </div>
 
-      {/* Recent Activity / Next Goal (Placeholder) */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <h3 className="font-bold text-grey-10 mb-4">Upcoming Goals</h3>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-3 text-grey-50">
-            <div className="w-10 h-10 rounded-full bg-grey-90 flex items-center justify-center text-xl">
-              🌅
+      {/* Upcoming Goals - List View */}
+      <div>
+        <h3 className="text-lg font-medium text-teal-900 mb-3 px-1">
+          Next Goal
+        </h3>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-grey-200 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-sand flex items-center justify-center text-xl grayscale border border-grey-100">
+            🌅
+          </div>
+          <div className="flex-1">
+            <div className="flex justify-between mb-2">
+              <p className="text-sm font-bold text-teal-900">The Early Riser</p>
+              <span className="text-xs font-mono text-grey-500">1/5</span>
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-grey-10">
-                The Early Riser
-              </p>
-              <div className="w-full h-1.5 bg-grey-90 rounded-full mt-1">
-                <div className="bg-ocean-70 h-1.5 rounded-full w-[20%]"></div>
-              </div>
+            <div className="w-full h-1.5 bg-grey-100 rounded-full overflow-hidden">
+              <div className="bg-teal-900 h-full w-[20%]"></div>
             </div>
-            <span className="text-xs font-mono">1/5</span>
           </div>
         </div>
       </div>
 
-      {/* Phase 2: Upselling & Rewards */}
+      {/* Phase 2: Upselling & Rewards - Clean Cards */}
       <div className="space-y-4">
+        <h3 className="text-lg font-medium text-teal-900 pt-2 px-1">For You</h3>
         <SavingsCard />
 
-        <h3 className="font-bold text-grey-10 px-1">Rewards</h3>
         <div className="grid grid-cols-2 gap-3">
           <CouponCard
-            title="Deep Work Monk"
-            discount="50% Off Meeting Room"
+            title="Deep Work"
+            discount="50% Off"
             code="DEEP50"
-            isUnlocked={currentStreak > 3} // Mock unlock logic
+            isUnlocked={currentStreak > 3} // Mock unlock
           />
           <CouponCard
-            title="Bring a Friend"
-            discount="Free Day Pass"
+            title="Guest Pass"
+            discount="Free"
             code="FRIENDFREE"
             isUnlocked={false}
           />

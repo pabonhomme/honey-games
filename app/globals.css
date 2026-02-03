@@ -1,32 +1,56 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  /* Import Industrious color system */
-  --color-teal-50: #1d5859;
-  --color-teal-70: #57898a;
-  --color-teal-90: #92b6b6;
-
+  /* Industrious "Vibe" Theme */
+  
+  /* Primary Brand - Deep Teal/Black */
+  --color-teal-900: #002525; /* Primary Text/Action */
+  --color-teal-700: #0e4e43;
+  --color-teal-500: #1d5859;
+  
+  /* Accents */
+  --color-gold-500: #D4AF37; /* Mock Gold */
+  --color-honey-500: #fcc70f;
+  
+  /* Neutrals */
+  --color-sand: #FDFDFB; /* App Background */
+  --color-white: #ffffff;
+  --color-grey-100: #f5f5f5;
+  --color-grey-200: #e5e5e5;
+  --color-grey-500: #737373;
+  --color-grey-80: #e5e5e5; /* Compat */
+  
+  /* Legacy/Compat mappings */
+  --color-teal-50: #002525; /* Mapped to primary */
+  --color-teal-70: #0e4e43;
+  --color-teal-90: #1d5859;
+  
   --color-ocean-50: #0e4e43;
   --color-ocean-70: #387d67;
   --color-ocean-90: #8ab89b;
-
+  
   --color-honey-50: #fcc70f;
   --color-honey-70: #fede73;
   --color-honey-90: #fee9a2;
-
+  
   --color-sunset-50: #dd5220;
   --color-sunset-70: #e98b69;
   --color-sunset-90: #f2baa5;
+  
+  /* Mapped legacy greys to new system */
+  --color-grey-10: #002525;
+  --color-grey-50: #737373;
+  --color-grey-90: #FDFDFB; /* Mapped to Sand */
 
-  --color-grey-10: #242424;
-  --color-grey-50: #b4b4b4;
-  --color-grey-80: #e0e0e0;
-  --color-grey-90: #eeeeee;
+  /* Shapes */
+  --radius-xl: 12px;
+  --radius-2xl: 16px; 
 
-  --shadow-sm: 0 0 4px 0 rgb(0 0 0 / 0.15);
-  --shadow-md: 0 0 7px 1px rgb(0 0 0 / 0.25);
-  --shadow-header: 0 2px 8px rgb(0 0 0 / 0.1);
-
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-header: 0 -2px 10px rgb(0 0 0 / 0.03);
+  
   /* Mobile-first breakpoints */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -35,24 +59,16 @@
   /* Animation */
   --animate-fade-in: fade-in 0.5s ease-out;
   @keyframes fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 }
 
 /* Mobile-optimized base styles */
 body {
-  @apply bg-grey-90 text-grey-10;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  background-color: var(--color-sand);
+  color: var(--color-teal-900);
+  font-family: var(--font-hanken), system-ui, sans-serif;
 }
 
 @utility safe-area-inset-bottom {

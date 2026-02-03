@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { useStore } from "@/lib/store/useStore";
 
 export function SavingsCard() {
@@ -9,43 +8,50 @@ export function SavingsCard() {
   if (!upsellOpportunity || upsellOpportunity.savings <= 0) return null;
 
   return (
-    <div className="bg-gradient-to-br from-grey-80 to-grey-90 p-6 rounded-2xl shadow-sm border border-white">
-      <h3 className="font-bold text-grey-10 mb-2">Smart Savings Insight</h3>
-      <p className="text-sm text-grey-50 mb-4">
-        Based on your {upsellOpportunity.visits} visits this year:
-      </p>
-
-      <div className="flex justify-between items-end mb-2">
-        <div>
-          <p className="text-xs text-grey-50 uppercase tracking-wide">
-            You Spent
-          </p>
-          <p className="text-2xl font-bold text-sunset-50">
-            ${upsellOpportunity.totalSpentOnDayPasses}
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-xs text-grey-50 uppercase tracking-wide">
-            Member Cost
-          </p>
-          <p className="text-xl font-bold text-teal-50">
-            ${upsellOpportunity.potentialMembershipCost}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4 pt-4 border-t border-grey-50/20">
-        <p className="text-sm">
-          A monthly membership would have saved you{" "}
-          <span className="font-bold text-honey-50">
-            ${upsellOpportunity.savings}
-          </span>
-          .
+    <div className="bg-teal-900 text-sand p-6 rounded-xl shadow-md border border-teal-700 relative overflow-hidden group">
+      {/* Content */}
+      <div className="relative z-10">
+        <h3 className="text-teal-500 text-xs font-bold uppercase tracking-widest mb-1">
+          Smart Savings
+        </h3>
+        <p className="text-sm opacity-90 mb-4">
+          Based on your {upsellOpportunity.visits} visits this year:
         </p>
-        <button className="mt-3 w-full py-2 bg-teal-50 text-white rounded-lg font-medium text-sm hover:bg-teal-70 transition-colors">
-          View Membership Options
-        </button>
+
+        <div className="flex justify-between items-end mb-4 border-b border-teal-700 pb-4">
+          <div>
+            <p className="text-xs text-teal-500 uppercase tracking-wide mb-1">
+              You Spent
+            </p>
+            <p className="text-2xl font-light text-white">
+              ${upsellOpportunity.totalSpentOnDayPasses}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-teal-500 uppercase tracking-wide mb-1">
+              Member Cost
+            </p>
+            <p className="text-xl font-light text-white/90">
+              ${upsellOpportunity.potentialMembershipCost}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <p className="text-sm">
+            Potential Savings:{" "}
+            <span className="font-bold text-gold-500">
+              ${upsellOpportunity.savings}
+            </span>
+          </p>
+          <button className="text-xs font-bold bg-white text-teal-900 px-4 py-2 rounded-lg hover:bg-grey-100 transition-colors">
+            View Options
+          </button>
+        </div>
       </div>
+
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none" />
     </div>
   );
 }
